@@ -10,26 +10,33 @@ def test_framing():
     make_sequence(INPUT_FILE, 500)
     encode(INPUT_FILE, OUTPUT_FILE)
 
-    print("DECODING")
+    print("DECODING unchanged sequence")
     decode(OUTPUT_FILE, DECODED_FILE)
-    print(check(INPUT_FILE, DECODED_FILE))
+    if check(INPUT_FILE, DECODED_FILE) == True:
+        print("decoded correctly :)")
+    else:
+        print("decoding failed :(")
 
 def test_framing_with_wrong_byte():
     print("FRAMING")
     make_sequence(INPUT_FILE, 500)
     encode(INPUT_FILE, OUTPUT_FILE)
 
-    print("Changed random bit")
+    print("Changed random bit \n")
     change_bit(OUTPUT_FILE)
 
-    print("DECODING")
+    print("DECODING changed sequence")
     decode(OUTPUT_FILE, DECODED_FILE)
-    print(check(INPUT_FILE, DECODED_FILE))
+    if check(INPUT_FILE, DECODED_FILE) == True:
+        print("decoded correctly :)")
+    else:
+        print("decoding failed :(")
     
 
 def main():
     test_framing()
-    # test_framing_with_wrong_byte()
+    print('\n')
+    test_framing_with_wrong_byte()
 
 if __name__ == "__main__":
     main()
