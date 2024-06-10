@@ -1,7 +1,7 @@
 from network import Network
 from time import sleep
 
-NO_DEVICES = 3
+NO_DEVICES = 5
 CABLE_LENGTH = 50
 MAX_ATEMPTS = 16
 
@@ -9,7 +9,7 @@ MAX_ATEMPTS = 16
 def main():
     network = Network(NO_DEVICES, CABLE_LENGTH, MAX_ATEMPTS)
 
-    for _ in range(100):
+    for _ in range(10000):
         network.next_tick()
         sleep(0.01)
 

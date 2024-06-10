@@ -22,8 +22,6 @@ class Device:
         
         self.transmiting = False
         self.queued_message = False
-        
-        self.log = ""
 
         self.set_message_chance()
         self.short_wait()
@@ -104,7 +102,7 @@ class Device:
 
     def get_message_data(self):
         success_rate = self.no_successes / max(self.no_messages - 1, 1) * 100
-        return f"Messages: {max(self.no_messages - 1, 0):4}    Successes: {self.no_successes:4}    Success rate: {success_rate:7.2f}%"
+        return f"{self.name}  -  Messages: {max(self.no_messages - 1, 0):4}    Successes: {self.no_successes:4}    Success rate: {success_rate:7.2f}%"
     
     def short_wait(self):
         self.waiting_time = randint(1,  self.max_wait_time // 2)

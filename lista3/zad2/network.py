@@ -6,22 +6,22 @@ NAMES = "ABCDEFGHIJKL"
 
 
 class Network:
-    def __init__(self, no_devices, cable_length, max_atempts, left_margin = 0, right_margin = 0):
-        self.device_name_ind = 0
-        self.cable_length = cable_length + left_margin + right_margin
+    def __init__(self, no_devices, cable_length, max_atempts):
+        self.device_name_index = 0
+        self.cable_length = cable_length
         self.max_atempts = max_atempts
         self.max_wait_time = 7 * cable_length
 
         self.devices = []
-        self.create_cable(cable_length, left_margin + right_margin)
-        self.connect_devices(no_devices, left_margin, right_margin)
+        self.create_cable(cable_length)
+        self.connect_devices(no_devices)
 
         self.log_file = open("network_log.txt", "w")
 
 
 
-    def create_cable(self, cable_length, cable_margin):
-        self.cable = [Node() for _ in range(cable_length + cable_margin)]
+    def create_cable(self, cable_length):
+        self.cable = [Node() for _ in range(cable_length)]
 
         #Connect pieces of cable
         for ind, elem in enumerate(self.cable):
@@ -34,26 +34,22 @@ class Network:
             prev_node = elem
         
 
-    def connect_devices(self, no_devices: int, left_margin: int, right_margin: int) -> None:
-        self.add_device(left_margin)
-        
-        self.add_device(self.cable_length - right_margin - 1)
-
-        while no_devices - 2  >  0:
-            if self.add_device(randint(left_margin, self.cable_length - right_margin - 1)):
+    def connect_devices(self, no_devices):
+        while no_devices  >  0:
+            if self.add_device(randint(0, self.cable_length - 1)):
                 no_devices -= 1
 
 
     def add_device(self, distance):
-        for comp in self.devices:
-            if comp.distance == distance:
+        for device in self.devices:
+            if device.distance == distance:
                 return False
 
-        name = NAMES[self.device_name_ind]
+        name = NAMES[self.device_name_index]
         node = self.cable[distance]
         device = Device(name, node, distance, self.max_wait_time, self.max_atempts, 2 * self.cable_length)
         self.devices.append(device)
-        self.device_name_ind +=1
+        self.device_name_index +=1
 
         return True
     
