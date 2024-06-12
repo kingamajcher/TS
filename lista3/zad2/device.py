@@ -29,7 +29,7 @@ class Device:
 
     def run(self):
         if self.jam_time > 0: # sending jam signal
-            self.node.set_connection(['!'])
+            self.node.set_current_signal(['!'])
             self.jam_time -= 1
 
         elif self.queued_message == False: # queuing message
@@ -70,7 +70,7 @@ class Device:
 
     def send_message(self): # sending message
         if self.transmiting:
-            self.node.set_connection([self.name])
+            self.node.set_current_signal([self.name])
 
             if self.node.get_collision_info(): # collision
                 self.transmiting = False

@@ -2,7 +2,7 @@ from node import Node
 from random import randint
 from device import Device
 
-NAMES = "ABCDEFGHIJKL"
+NAMES = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 
 class Network:
@@ -19,13 +19,12 @@ class Network:
         self.log_file = open("network_log.txt", "w")
 
 
-
     def create_cable(self, cable_length):
         self.cable = [Node() for _ in range(cable_length)]
 
-        #Connect pieces of cable
-        for ind, elem in enumerate(self.cable):
-            if ind == 0:
+        # connecting pieces of cable
+        for idx, elem in enumerate(self.cable):
+            if idx == 0:
                 prev_node = elem
                 continue
 
@@ -79,8 +78,8 @@ class Network:
     
     def show_statistics(self):
         print()
-        for comp in self.devices:
-            print(comp.get_message_data())
+        for device in self.devices:
+            print(device.get_message_data())
 
     def write_log(self, message):
         self.log_file.write(message)

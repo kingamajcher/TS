@@ -1,21 +1,21 @@
 class Node:
     def __init__(self):
-        self.right_node : Node = None
-        self.left_node : Node = None
+        self.right_node = None
+        self.left_node = None
         self.next_right_signal = []
         self.next_left_signal = []
         self.right_signal = []
         self.left_signal = []
-        self.connection = []
+        self.current_signal = []
     
 
     def get_collision_info(self):
-        signals = self.left_signal + self.right_signal + self.connection
+        signals = self.left_signal + self.right_signal + self.current_signal
         return len(signals) >= 2
     
 
     def get_signal_info(self):
-        signals = self.left_signal + self.right_signal + self.connection
+        signals = self.left_signal + self.right_signal + self.current_signal
         no_signals = len(signals)
 
         if no_signals == 0:
@@ -30,9 +30,9 @@ class Node:
 
     def propagate(self):
         if self.right_node != None:
-            self.right_node.set_next_left_signal(self.left_signal + self.connection)
+            self.right_node.set_next_left_signal(self.left_signal + self.current_signal)
         if self.left_node != None:
-            self.left_node.set_next_right_signal(self.right_signal + self.connection)
+            self.left_node.set_next_right_signal(self.right_signal + self.current_signal)
 
 
     def update(self):
@@ -40,7 +40,7 @@ class Node:
         self.left_signal = self.next_left_signal
         self.next_right_signal = []
         self.next_left_signal = []
-        self.connection = []
+        self.current_signal = []
 
     
     def set_next_right_signal(self, signal):
@@ -56,5 +56,5 @@ class Node:
     def set_left_node(self, node):
         self.left_node = node
 
-    def set_connection(self, connection):
-        self.connection = connection
+    def set_current_signal(self, current_signal):
+        self.current_signal = current_signal
